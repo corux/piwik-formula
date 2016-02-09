@@ -1,0 +1,8 @@
+piwik:
+  directory: /opt/piwik
+  version: latest
+  logfile: /var/log/piwik-archive.log
+  latest_url: https://builds.piwik.org/LATEST
+  builds: https://builds.piwik.org/
+  url: http://localhost/piwik
+  enable_installer: False

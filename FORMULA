@@ -1,0 +1,8 @@
+name: piwik
+os: CentOS
+os_family: RedHat
+version: 201602
+release: 1
+dependencies: apache, epel
+summary: Formula for installing Piwik
+description: Formula for installing the Piwik Web Analytics Software

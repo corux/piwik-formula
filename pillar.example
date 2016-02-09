@@ -1,0 +1,16 @@
+piwik:
+  version: latest
+  url: http://localhost/piwik
+  enable_installer: True
+  config:
+    log:
+      log_writers[]: file
+      log_level: INFO
+      logger_file_path: tmp/logs/piwik.log
+    database:
+      host: localhost
+      username: piwik
+      password: piwik-password
+      dbname: piwik
+      tables_prefix: piwik_
+      adapter: MYSQLI

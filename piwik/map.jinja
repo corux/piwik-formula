@@ -1,0 +1,7 @@
+{% import_yaml 'piwik/defaults.yaml' as default_settings %}
+{% set piwik = salt['pillar.get']('piwik', default=default_settings.get('piwik'), merge=True) %}
+
+{% do piwik.update({
+  'config_file': piwik.directory + '/piwik/config/config.ini.php',
+  'console': piwik.directory + '/piwik/console'
+}) %}

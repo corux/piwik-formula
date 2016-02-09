@@ -1,0 +1,9 @@
+books:
+  - book: "srv/formulas/apache"
+    git: "https://github.com/saltstack-formulas/apache-formula.git"
+  - book: "srv/salt/apache"
+    link: "../formulas/apache/apache"
+  - book: "srv/formulas/epel"
+    git: "https://github.com/saltstack-formulas/epel-formula.git"
+  - book: "srv/salt/epel"
+    link: "../formulas/epel/epel"
