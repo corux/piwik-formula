@@ -1,9 +1,5 @@
 {% from "piwik/map.jinja" import piwik with context %}
 
-piwik-selinux-deps:
-  pkg.installed:
-    - name: policycoreutils-python
-
 {% for file in [ piwik.directory + '/piwik/tmp(/.*)?', piwik.directory + '/piwik/misc(/.*)?', piwik.directory + '/piwik/plugins(/.*)?', piwik.config_file ] %}
 piwik-selinux-{{ file }}:
   cmd.run:

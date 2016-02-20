@@ -1,5 +1,5 @@
 {% from 'piwik/map.jinja' import piwik with context %}
-{% set is_selinux_enabled = salt.cmd.retcode('selinuxenabled') == 0 %}
+{% from 'selinux/map.jinja' import selinux with context %}
 
 include:
   - epel
@@ -9,7 +9,7 @@ include:
   - php.ng.xml
   - php.ng.mysql
   - php.ng.mbstring
-{% if is_selinux_enabled %}
+{% if selinux.enabled %}
   - .selinux
 {% endif %}
 
