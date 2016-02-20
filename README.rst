@@ -16,7 +16,7 @@ Available states
 ``piwik``
 ---------
 
-Installs the Piwik Web Analytics Software.
+Installs the Piwik Web Analytics Software.  Includes ``piwik.selinux``, if SELinux is enabled.
 
 ``piwik.apache``
 ----------------

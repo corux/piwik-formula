@@ -1,4 +1,5 @@
 {% from 'piwik/map.jinja' import piwik with context %}
+{% set is_selinux_enabled = salt.cmd.retcode('selinuxenabled') == 0 %}
 
 include:
   - epel
@@ -8,6 +9,9 @@ include:
   - php.ng.xml
   - php.ng.mysql
   - php.ng.mbstring
+{% if is_selinux_enabled %}
+  - .selinux
+{% endif %}
 
 piwik-pkgs:
   pkg.installed:
