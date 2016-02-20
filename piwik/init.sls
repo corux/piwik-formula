@@ -2,17 +2,16 @@
 
 include:
   - epel
+  - php.ng
+  - php.ng.gd
+  - php.ng.cli
+  - php.ng.xml
+  - php.ng.mysql
+  - php.ng.mbstring
 
 piwik-pkgs:
   pkg.installed:
     - pkgs:
-      - php-pdo
-      - php-gd
-      - php-cli
-      - php-xml
-      - php-mysql
-      - php-mbstring
-      - php
       - crudini
 
 piwik-dir:
