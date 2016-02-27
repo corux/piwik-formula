@@ -5,3 +5,14 @@
   'config_file': piwik.directory + '/piwik/config/config.ini.php',
   'console': piwik.directory + '/piwik/console'
 }) %}
+
+{# convert all string values to  #}
+{% for section, config in piwik.get('config', {}).items() %}
+{% for key, value in config.items() %}
+{% if value is string %}
+{% do piwik.config.get(section).update({
+  key: '"' + value + '"'
+}) %}
+{% endif %}
+{% endfor %}
+{% endfor %}
