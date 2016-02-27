@@ -22,7 +22,7 @@ piwik-selinux-restorecon:
     - watch:
       - cmd: piwik-install
       - file: piwik-chmod-config
-{% if not piwik.enable_installer -%}
+{%- if not piwik.enable_installer %}
       - ini: piwik-config
       - file: piwik-config-header
-{% endif -%}
+{%- endif %}
