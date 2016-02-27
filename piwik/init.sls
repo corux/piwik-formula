@@ -113,6 +113,17 @@ piwik-config:
     - require_in:
       - cmd: piwik-maintenance-update-schema
       - cmd: piwik-maintenance-end
+
+piwik-config-header:
+  file.replace:
+    - name: {{ piwik.config_file }}
+    - pattern: |
+        ^.*<\?php exit; \?>.*$
+    - repl: |
+        ; <?php exit; ?> DO NOT REMOVE THIS LINE
+    - prepend_if_not_found: True
+    - require:
+      - ini: piwik-config
 {% endif %}
 
 piwik-cronjob-log:
