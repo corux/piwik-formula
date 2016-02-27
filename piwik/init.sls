@@ -106,19 +106,13 @@ piwik-chmod-config:
     - require:
       - cmd: piwik-install
 
-{% for group, parameters in piwik.get('config', {}).items() %}
-{% for key, value in parameters.items() %}
-piwik-config-{{ group }}-{{ key }}:
+piwik-config:
   ini.options_present:
     - name: {{ piwik.config_file }}
-    - sections:
-        {{ group }}:
-          {{ key }}: '"{{ value }}"'
+    - sections: {{ piwik.get('config', {})|yaml }}
     - require_in:
       - cmd: piwik-maintenance-update-schema
       - cmd: piwik-maintenance-end
-{% endfor %}
-{% endfor %}
 {% endif %}
 
 piwik-cronjob-log:
