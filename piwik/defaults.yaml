@@ -6,3 +6,52 @@ piwik:
   builds: https://builds.piwik.org/
   url: http://localhost/piwik
   enable_installer: False
+  config:
+    log:
+      log_writers[]: file
+      log_level: INFO
+      logger_file_path: tmp/logs/piwik.log
+    Plugins:
+      Plugins[]:
+        - CorePluginsAdmin
+        - CoreAdminHome
+        - CoreHome
+        - WebsiteMeasurable
+        - Diagnostics
+        - CoreVisualizations
+        - Proxy
+        - API
+        - Transitions
+        - LanguagesManager
+        - Actions
+        - Dashboard
+        - Referrers
+        - UserLanguage
+        - DevicesDetection
+        - SEO
+        - UserCountry
+        - VisitsSummary
+        - VisitFrequency
+        - VisitTime
+        - VisitorInterest
+        - Monolog
+        - UsersManager
+        - SitesManager
+        - Installation
+        - CoreUpdater
+        - CoreConsole
+        - UserCountryMap
+        - Live
+        - Overlay
+        - SegmentEditor
+        - Insights
+        - Morpheus
+        - Contents
+        - Resolution
+        - DevicePlugins
+        - Intl
+        - DBStats
+        - MobileAppMeasurable
+        - Provider
+        - Login
+        - SecurityInfo

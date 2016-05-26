@@ -72,7 +72,7 @@ piwik-chmod-dirs:
 
 piwik-maintenance-start:
   cmd.wait:
-    - name: test ! -f {{ piwik.config_file }} || ( crudini --set "{{ piwik.config_file }}" General maintenance_mode 1 && crudini --set "{{ piwik.config_file }}" Tracker record_statistics 0 )
+    - name: 'test ! -f {{ piwik.config_file }} || ( crudini --set "{{ piwik.config_file }}" General maintenance_mode 1 && crudini --set "{{ piwik.config_file }}" Tracker record_statistics 0 )'
     - require:
       - pkg: piwik-pkgs
 
@@ -88,8 +88,8 @@ piwik-maintenance-update-schema:
 
 piwik-maintenance-end:
   cmd.run:
-    - name: crudini --del "{{ piwik.config_file }}" General maintenance_mode; crudini --del "{{ piwik.config_file }}" Tracker record_statistics
-    - onlyif: crudini --get "{{ piwik.config_file }}" General maintenance_mode || crudini --get "{{ piwik.config_file }}" Tracker record_statistics
+    - name: 'crudini --del "{{ piwik.config_file }}" General maintenance_mode; crudini --del "{{ piwik.config_file }}" Tracker record_statistics'
+    - onlyif: 'crudini --get "{{ piwik.config_file }}" General maintenance_mode || crudini --get "{{ piwik.config_file }}" Tracker record_statistics'
     - watch:
       - cmd: piwik-maintenance-update-schema
     - require:
@@ -107,23 +107,15 @@ piwik-chmod-config:
       - cmd: piwik-install
 
 piwik-config:
-  ini.options_present:
+  file.managed:
     - name: {{ piwik.config_file }}
-    - sections: {{ piwik.get('config', {})|yaml }}
+    - source: salt://piwik/files/config.ini.php
+    - template: jinja
+    - defaults:
+        config: {{ piwik.get('config', {})|yaml }}
     - require_in:
       - cmd: piwik-maintenance-update-schema
       - cmd: piwik-maintenance-end
-
-piwik-config-header:
-  file.replace:
-    - name: {{ piwik.config_file }}
-    - pattern: |
-        ^.*<\?php exit; \?>.*$
-    - repl: |
-        ; <?php exit; ?> DO NOT REMOVE THIS LINE
-    - prepend_if_not_found: True
-    - require:
-      - ini: piwik-config
 {% endif %}
 
 piwik-cronjob-log:

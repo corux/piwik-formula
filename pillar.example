@@ -14,3 +14,7 @@ piwik:
       dbname: piwik
       tables_prefix: piwik_
       adapter: MYSQLI
+    General:
+      trusted_hosts[]:
+        - www.example.com
+        - piwik.exapmle.com
