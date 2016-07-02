@@ -79,7 +79,7 @@ piwik-maintenance-start:
 piwik-maintenance-update-schema:
   cmd.run:
     - name: test ! -f {{ piwik.config_file }} || php {{ piwik.console }} core:update --yes
-    - user: apache
+    - runas: apache
     - cwd: {{ piwik.directory }}
     - onchanges:
       - cmd: piwik-install
