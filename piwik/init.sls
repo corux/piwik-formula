@@ -102,6 +102,7 @@ piwik-chmod-config:
     - name: {{ piwik.config_file }}
     - user: apache
     - group: apache
+    - replace: False
     - mode: 600
     - require:
       - cmd: piwik-install
@@ -127,6 +128,7 @@ piwik-cronjob-log:
     - name: {{ piwik.logfile }}
     - user: apache
     - group: apache
+    - replace: False
     - mode: 644
     - require:
       - cmd: piwik-cronjob-log
