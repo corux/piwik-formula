@@ -42,14 +42,14 @@ piwik-version:
       - file: piwik-dir
     - require_in:
       - cmd: piwik-install
-    - watch_in:
+    - onchanges_in:
       - cmd: piwik-maintenance-start
 
 piwik-install:
-  cmd.wait:
+  cmd.run:
     - name: curl "{{ piwik.builds }}/piwik-`cat {{ piwik.directory }}/version`.tar.gz" -L --silent | tar -xz && chown root:root -R {{ piwik.directory }}
     - cwd: {{ piwik.directory }}
-    - watch:
+    - onchanges:
       - cmd: piwik-maintenance-start
 
 piwik-chmod-dirs:
@@ -71,17 +71,17 @@ piwik-chmod-dirs:
       - cmd: piwik-install
 
 piwik-maintenance-start:
-  cmd.wait:
+  cmd.run:
     - name: 'test ! -f {{ piwik.config_file }} || ( crudini --set "{{ piwik.config_file }}" General maintenance_mode 1 && crudini --set "{{ piwik.config_file }}" Tracker record_statistics 0 )'
     - require:
       - pkg: piwik-pkgs
 
 piwik-maintenance-update-schema:
-  cmd.wait:
+  cmd.run:
     - name: test ! -f {{ piwik.config_file }} || php {{ piwik.console }} core:update --yes
     - user: apache
     - cwd: {{ piwik.directory }}
-    - watch:
+    - onchanges:
       - cmd: piwik-install
     - require:
       - pkg: piwik-pkgs
@@ -90,7 +90,7 @@ piwik-maintenance-end:
   cmd.run:
     - name: 'crudini --del "{{ piwik.config_file }}" General maintenance_mode; crudini --del "{{ piwik.config_file }}" Tracker record_statistics'
     - onlyif: 'crudini --get "{{ piwik.config_file }}" General maintenance_mode || crudini --get "{{ piwik.config_file }}" Tracker record_statistics'
-    - watch:
+    - onchanges:
       - cmd: piwik-maintenance-update-schema
     - require:
       - pkg: piwik-pkgs
