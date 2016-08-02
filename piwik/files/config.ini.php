@@ -10,9 +10,9 @@
 {%- endif -%}
 {%- endmacro %}
 
-{% for section, values in config.items() %}
+{% for section, values in config|dictsort %}
 [{{ section }}]
-{%- for key, value in values.items() -%}
+{%- for key, value in values|dictsort -%}
 {{ ini_serialize(key, value) }}
 {%- endfor %}
 {% endfor %}
