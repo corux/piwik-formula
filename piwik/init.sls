@@ -146,14 +146,18 @@ piwik-cronjob:
 geoip:
   pkg.installed:
     - pkgs:
-      - php-pecl-geoip
       - GeoIP
+
+  pecl.installed:
+    - name: geoip
+    - require:
+      - pkg: geoip
 
   file.symlink:
     - name: /usr/share/GeoIP/GeoIPCity.dat
     - target: GeoLiteCity.dat
     - require:
-      - pkg: geoip
+      - pecl: geoip
 
 geoip-update-cronjob:
   file.managed:
