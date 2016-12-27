@@ -147,24 +147,10 @@ geoip:
   pkg.installed:
     - pkgs:
       - GeoIP
-
-  pecl.installed:
-    - name: geoip
-    - require:
-      - pkg: geoip
+      - GeoIP-update
 
   file.symlink:
-    - name: /usr/share/GeoIP/GeoIPCity.dat
-    - target: GeoLiteCity.dat
+    - name: {{ piwik.directory }}/piwik/misc/GeoIPCity.dat
+    - target: /usr/share/GeoIP/GeoLiteCity.dat
     - require:
-      - pecl: geoip
-
-geoip-update-cronjob:
-  file.managed:
-    - name: /etc/cron.daily/0geoip
-    - user: root
-    - group: root
-    - mode: 755
-    - contents: |
-        #!/bin/sh
-        /usr/bin/geoipupdate
+      - pkg: geoip
