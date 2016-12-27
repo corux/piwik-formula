@@ -134,6 +134,9 @@ piwik-cronjob-log:
       - cmd: piwik-cronjob-log
 
 piwik-cronjob:
+  pkg.installed:
+    - name: crontabs
+
   file.managed:
     - name: /etc/cron.hourly/0piwik
     - user: root
